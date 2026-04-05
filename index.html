@@ -397,7 +397,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <script>
 // â”€â”€ CONFIG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVeT3RZ-Hhc87KE3UnOKPuWWF1atIIo-rEBAcdd-lh59hacZpsP9QmNxwN0ecn5P3e/exec';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxv5ky46SrDRgpvuISSfWeP1cqaznt5ve11k6AhT9vBjzpaY32bBGYH4pG34GtEqZgd/exec';
 var PASS = '5Li55*An';
 
 // â”€â”€ ESTADO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -442,12 +442,38 @@ function toast(msg, tipo){
 }
 
 function callAPI(action, data, cb, cbErr) {
-  var url = SCRIPT_URL + '?action=' + action + '&token=' + encodeURIComponent(PASS)
-    + '&data=' + encodeURIComponent(JSON.stringify(data));
-  fetch(url, {method:'GET', redirect:'follow'})
+  // Acciones con imagenes usan POST para evitar limite de URL
+  var postActions = ['ocrDni', 'saveFotosDrive'];
+  var usePost = postActions.indexOf(action) >= 0;
+
+  var fetchOpts;
+  if (usePost) {
+    var body = Object.assign({action: action, token: PASS}, data);
+    fetchOpts = {
+      method: 'POST',
+      redirect: 'follow',
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify(body)
+    };
+  } else {
+    var url = SCRIPT_URL + '?action=' + action + '&token=' + encodeURIComponent(PASS)
+      + '&data=' + encodeURIComponent(JSON.stringify(data));
+    fetchOpts = {method: 'GET', redirect: 'follow'};
+    fetch(url, fetchOpts)
+      .then(function(r){ return r.text(); })
+      .then(function(t){
+        var d; try{ d=JSON.parse(t); }catch(e){ d={error:'Respuesta invalida'}; }
+        if(d && d.error){ if(cbErr) cbErr(d.error); else toast(d.error,'err'); }
+        else { if(cb) cb(d); }
+      })
+      .catch(function(e){ if(cbErr) cbErr('Sin conexion'); else toast('Sin conexion','err'); });
+    return;
+  }
+
+  fetch(SCRIPT_URL, fetchOpts)
     .then(function(r){ return r.text(); })
     .then(function(t){
-      var d; try{ d=JSON.parse(t); }catch(e){ d={error:'Respuesta invalida: '+t.substring(0,50)}; }
+      var d; try{ d=JSON.parse(t); }catch(e){ d={error:'Respuesta invalida'}; }
       if(d && d.error){ if(cbErr) cbErr(d.error); else toast(d.error,'err'); }
       else { if(cb) cb(d); }
     })
@@ -808,5 +834,6 @@ window.onload = function(){
   document.getElementById('btn-sig1').disabled = true;
 };
 </script>
+<div id="vbadge" style="position:fixed;bottom:10px;right:10px;background:rgba(0,0,0,.7);border:1px solid var(--dorado);color:var(--dorado);font-family:'Barlow Condensed',sans-serif;font-size:11px;padding:3px 8px;border-radius:6px;z-index:9999;">v1.0</div>
 </body>
 </html>
