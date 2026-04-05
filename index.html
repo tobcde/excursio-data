@@ -315,15 +315,26 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
         <span class="card-title">Foto del Jugador</span>
       </div>
       <div class="card-body">
-        <p class="card-desc">Sub&iacute; una foto de frente del jugador. Fondo claro, buena iluminaci&oacute;n.</p>
+        <p class="card-desc">Foto tipo <b>carnet</b>: cara y cuello de frente, fondo claro, buena iluminaci&oacute;n.</p>
         <div id="prev-foto-wrap" class="upload-preview" style="display:none;">
-          <img id="prev-foto-img" src="" alt="Foto jugador">
+          <img id="prev-foto-img" src="" alt="Foto jugador" style="max-height:220px;object-fit:contain;">
           <button class="upload-preview-remove" onclick="quitarFoto('foto')">&#x2715;</button>
         </div>
-        <div class="upload-zone" id="zona-foto" style="display:block;">
-          <input type="file" accept="image/*" onchange="cargarFoto('foto',this)">
-          <div class="upload-zone-icon">&#x1F464;</div>
-          <div class="upload-zone-label">Toc&aacute; para subir o sacar foto</div>
+        <div id="zona-foto" style="display:block;">
+          <div style="display:flex;gap:10px;margin-bottom:10px;">
+            <label class="btn btn-outline btn-full" style="cursor:pointer;flex:1;">
+              &#x1F933; C&aacute;mara frontal
+              <input type="file" accept="image/*" capture="user" style="display:none;" onchange="cargarFoto('foto',this)">
+            </label>
+            <label class="btn btn-outline btn-full" style="cursor:pointer;flex:1;">
+              &#x1F4F7; C&aacute;mara trasera
+              <input type="file" accept="image/*" capture="environment" style="display:none;" onchange="cargarFoto('foto',this)">
+            </label>
+          </div>
+          <label class="btn btn-outline btn-full" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;">
+            &#x1F4C1; Elegir de galer&iacute;a
+            <input type="file" accept="image/*" style="display:none;" onchange="cargarFoto('foto',this)">
+          </label>
         </div>
       </div>
     </div>
@@ -397,7 +408,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <script>
 // â”€â”€ CONFIG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxv5ky46SrDRgpvuISSfWeP1cqaznt5ve11k6AhT9vBjzpaY32bBGYH4pG34GtEqZgd/exec';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyHGeVQxAYRvQkXwbz6gVDuCDVSdLlDIwAgxMgjZZTUBSzn0cpanIVj8XYX_djXerUt/exec';
 var PASS = '5Li55*An';
 
 // â”€â”€ ESTADO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -550,6 +561,26 @@ function cargarImagen(n, input) {
   reader.readAsDataURL(file);
 }
 
+function normalizarDni(dni) {
+  return dni ? dni.toString().replace(/\./g, '').replace(/\s/g, '').trim() : '';
+}
+
+function dmy2ymd(s) {
+  if(!s) return '';
+  var p = s.split('/');
+  if(p.length === 3 && p[2].length === 4) {
+    return p[2] + '-' + p[1].padStart(2,'0') + '-' + p[0].padStart(2,'0');
+  }
+  return s;
+}
+
+function ymd2dmy(s) {
+  if(!s) return '';
+  var p = s.split('-');
+  if(p.length === 3) return p[2] + '/' + p[1] + '/' + p[0];
+  return s;
+}
+
 function comprimirImagen(dataUrl, maxW, maxH, calidad, cb) {
   var img = new Image();
   img.onload = function() {
@@ -589,6 +620,7 @@ function procesarOCR() {
   callAPI('ocrDni', {imgFront: S.imgFront, imgBack: S.imgBack || null}, function(r){
     if(!r.ok){ ocultarLoader(); toast(r.error||'Error en OCR','err'); return; }
     S.ocrData = r.data;
+    S.ocrData.dni = normalizarDni(S.ocrData.dni);
     // Buscar en la hoja
     callAPI('findByDni', {dni: S.ocrData.dni}, function(fr){
       ocultarLoader();
@@ -650,6 +682,8 @@ function buildTabla() {
   CAMPOS.forEach(function(c){
     var ocrVal  = (S.ocrData  && S.ocrData[c.key])  ? S.ocrData[c.key]  : '';
     var sysVal  = (S.sistemaData && S.sistemaData[c.key]) ? S.sistemaData[c.key] : '';
+    // Convertir fechas a formato YYYY-MM-DD para el input type=date
+    if(c.tipo === 'date') { ocrVal = dmy2ymd(ocrVal); sysVal = dmy2ymd(sysVal); }
     var rowCls  = '';
     if(!c.editable){
       rowCls = '';
@@ -694,7 +728,12 @@ function getCamposEditados() {
   CAMPOS.forEach(function(c){
     if(!c.editable) return;
     var el = document.getElementById('edit-'+c.key);
-    if(el) out[c.key] = el.value.trim();
+    if(el) {
+      var v = el.value.trim();
+      // Reconvertir fecha de YYYY-MM-DD a DD/MM/YYYY para guardar
+      if(c.tipo === 'date' && v) v = ymd2dmy(v);
+      out[c.key] = v;
+    }
   });
   // Incluir apellido y nombre del OCR si es nuevo
   if(S.esNuevo) {
@@ -786,7 +825,7 @@ function confirmarGuardar(){
     if(!S.imgFront && !S.foto && !S.apto){ cb({}); return; }
     mostrarLoader('Subiendo imagenes a Drive...');
     callAPI('saveFotosDrive', {
-      dni:      dni,
+      dni:      normalizarDni(dni),
       imgFront: S.imgFront || null,
       imgBack:  S.imgBack  || null,
       foto:     S.foto     || null,
@@ -855,6 +894,6 @@ window.onload = function(){
   document.getElementById('btn-sig1').disabled = true;
 };
 </script>
-<div id="vbadge" style="position:fixed;bottom:10px;right:10px;background:rgba(0,0,0,.7);border:1px solid var(--dorado);color:var(--dorado);font-family:'Barlow Condensed',sans-serif;font-size:11px;padding:3px 8px;border-radius:6px;z-index:9999;">v1.1</div>
+<div id="vbadge" style="position:fixed;bottom:10px;right:10px;background:rgba(0,0,0,.7);border:1px solid var(--dorado);color:var(--dorado);font-family:'Barlow Condensed',sans-serif;font-size:11px;padding:3px 8px;border-radius:6px;z-index:9999;">v1.2</div>
 </body>
 </html>
