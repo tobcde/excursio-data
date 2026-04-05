@@ -29,20 +29,20 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
 
-/* ── LOADER ── */
+/* â”€â”€ LOADER â”€â”€ */
 #loader{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;}
 #loader.oculto{display:none;}
 .spinner{width:44px;height:44px;border:3px solid var(--border);border-top-color:var(--verde);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 #loader-msg{margin-top:14px;color:var(--muted);font-size:13px;text-align:center;}
 
-/* ── HEADER ── */
+/* â”€â”€ HEADER â”€â”€ */
 .app-header{background:var(--surface);border-bottom:2px solid var(--verde);padding:12px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50;}
 .app-header img{width:38px;height:38px;border-radius:8px;}
 .app-header h1{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;}
 .app-header h1 span{color:var(--dorado);}
 
-/* ── PROGRESS ── */
+/* â”€â”€ PROGRESS â”€â”€ */
 .progress-bar{display:flex;align-items:center;padding:14px 16px;background:var(--surface);border-bottom:1px solid var(--border);gap:0;overflow-x:auto;}
 .progress-step{display:flex;align-items:center;gap:6px;flex-shrink:0;}
 .progress-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;border:2px solid var(--border);color:var(--muted);background:var(--bg);transition:all .3s;}
@@ -53,12 +53,12 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .progress-sep{width:20px;height:2px;background:var(--border);margin:0 4px;flex-shrink:0;}
 .progress-sep.listo{background:var(--verde);}
 
-/* ── MAIN ── */
+/* â”€â”€ MAIN â”€â”€ */
 .main{padding:16px;max-width:700px;margin:0 auto;}
 .step{display:none;}
 .step.activo{display:block;}
 
-/* ── CARDS ── */
+/* â”€â”€ CARDS â”€â”€ */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;}
 .card-header{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
 .card-icon{font-size:20px;}
@@ -66,7 +66,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .card-body{padding:16px;}
 .card-desc{color:var(--muted);font-size:13px;margin-bottom:16px;line-height:1.5;}
 
-/* ── CAMARA ── */
+/* â”€â”€ CAMARA â”€â”€ */
 .cam-wrap{position:relative;width:100%;aspect-ratio:4/3;background:#000;border-radius:10px;overflow:hidden;margin-bottom:12px;}
 .cam-wrap video{width:100%;height:100%;object-fit:cover;}
 .cam-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
@@ -79,7 +79,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .preview-wrap img{width:100%;border-radius:10px;display:block;}
 .preview-ok{position:absolute;top:10px;right:10px;background:var(--verde);color:#fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:16px;}
 
-/* ── BOTONES ── */
+/* â”€â”€ BOTONES â”€â”€ */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 18px;border:none;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.04em;cursor:pointer;transition:all .2s;text-transform:uppercase;}
 .btn-full{width:100%;}
 .btn-verde{background:var(--verde);color:#fff;}
@@ -91,7 +91,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .btn-red{background:var(--red-dim);border:1px solid var(--red-border);color:var(--red);}
 .btn-sm{padding:8px 14px;font-size:13px;}
 
-/* ── TABLA COMPARACION ── */
+/* â”€â”€ TABLA COMPARACION â”€â”€ */
 .comp-table{width:100%;border-collapse:collapse;font-size:13px;}
 .comp-table th{padding:8px 12px;background:var(--surface2);font-family:'Barlow Condensed',sans-serif;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--border);text-align:left;}
 .comp-table td{padding:0;border:1px solid var(--border);vertical-align:middle;}
@@ -106,7 +106,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .badge-ok{display:inline-block;width:18px;height:18px;background:var(--verde);border-radius:50%;text-align:center;line-height:18px;font-size:10px;color:#fff;margin-left:6px;}
 .badge-warn{display:inline-block;width:18px;height:18px;background:var(--dorado);border-radius:50%;text-align:center;line-height:18px;font-size:10px;color:#000;margin-left:6px;}
 
-/* ── UPLOAD FOTO ── */
+/* â”€â”€ UPLOAD FOTO â”€â”€ */
 .upload-zone{border:2px dashed var(--border);border-radius:12px;padding:32px;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
 .upload-zone:hover,.upload-zone.dragover{border-color:var(--verde);background:var(--verde-dim);}
 .upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
@@ -116,7 +116,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .upload-preview img{width:100%;max-height:250px;object-fit:cover;display:block;}
 .upload-preview-remove{position:absolute;top:8px;right:8px;background:var(--red);color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 
-/* ── RESUMEN ── */
+/* â”€â”€ RESUMEN â”€â”€ */
 .resumen-section{margin-bottom:16px;}
 .resumen-title{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:var(--dorado);text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
 .resumen-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid rgba(42,52,68,.5);font-size:13px;}
@@ -124,20 +124,20 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 .resumen-label{color:var(--muted);}
 .resumen-val{font-weight:600;text-align:right;max-width:60%;}
 
-/* ── ALERTS ── */
+/* â”€â”€ ALERTS â”€â”€ */
 .alert{padding:12px 16px;border-radius:10px;font-size:13px;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;}
 .alert-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
 .alert-verde{background:var(--verde-dim);border:1px solid var(--verde-border);color:#6de097;}
 .alert-dorado{background:var(--dorado-dim);border:1px solid var(--dorado-border);color:var(--dorado);}
 .alert-red{background:var(--red-dim);border:1px solid var(--red-border);color:var(--red);}
 
-/* ── SUCCESS ── */
+/* â”€â”€ SUCCESS â”€â”€ */
 .success-screen{text-align:center;padding:40px 20px;}
 .success-icon{font-size:64px;margin-bottom:16px;}
 .success-title{font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--verde);margin-bottom:8px;}
 .success-sub{color:var(--muted);font-size:14px;margin-bottom:24px;}
 
-/* ── TOAST ── */
+/* â”€â”€ TOAST â”€â”€ */
 #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);padding:10px 20px;border-radius:20px;font-size:13px;display:none;z-index:9999;white-space:nowrap;}
 #toast.ok{background:var(--verde);color:#fff;}
 #toast.err{background:var(--red);color:#fff;}
@@ -396,11 +396,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <div id="toast"></div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxGzOrfcpSHZkQOaSTBgzN8qf9u9x0DXreUXwDYnvoaX9gALL2TDpOWsx1xWdxjtE8z/exec';
+// â”€â”€ CONFIG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxVeT3RZ-Hhc87KE3UnOKPuWWF1atIIo-rEBAcdd-lh59hacZpsP9QmNxwN0ecn5P3e/exec';
 var PASS = '5Li55*An';
 
-// ── ESTADO ───────────────────────────────────────────────────────
+// â”€â”€ ESTADO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 var S = {
   paso: 1,
   imgFront: null,     // base64
@@ -427,7 +427,7 @@ var CAMPOS = [
   {key:'celular',   label:'Celular',          editable:true, tipo:'tel'},
 ];
 
-// ── UTILS ────────────────────────────────────────────────────────
+// â”€â”€ UTILS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function mostrarLoader(msg){
   document.getElementById('loader').classList.remove('oculto');
   document.getElementById('loader-msg').innerText = msg||'Procesando...';
@@ -454,7 +454,7 @@ function callAPI(action, data, cb, cbErr) {
     .catch(function(e){ if(cbErr) cbErr('Sin conexion'); else toast('Sin conexion','err'); });
 }
 
-// ── PROGRESO ─────────────────────────────────────────────────────
+// â”€â”€ PROGRESO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function irPaso(n) {
   // Ocultar paso actual
   document.getElementById('step'+S.paso).classList.remove('activo');
@@ -476,7 +476,7 @@ function irPaso(n) {
   if(n===5) renderResumen();
 }
 
-// ── CAMARA ───────────────────────────────────────────────────────
+// â”€â”€ CAMARA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function toggleCam(n) {
   var wrap = document.getElementById('cam'+n+'-wrap');
   var video = document.getElementById('cam'+n+'-video');
@@ -535,7 +535,7 @@ function setImagen(n, data) {
   if(btnSig) btnSig.disabled = false;
 }
 
-// ── OCR ───────────────────────────────────────────────────────────
+// â”€â”€ OCR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function procesarOCR() {
   if(!S.imgFront){ toast('Necesitas el frente del DNI','err'); return; }
   mostrarLoader('Leyendo DNI con inteligencia artificial...');
@@ -557,7 +557,7 @@ function procesarOCR() {
   });
 }
 
-// ── VERIFICACION ─────────────────────────────────────────────────
+// â”€â”€ VERIFICACION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function renderVerificacion(findResult) {
   var noEncEl  = document.getElementById('alert-dni-no-encontrado');
   var encEl    = document.getElementById('alert-dni-encontrado');
@@ -658,7 +658,7 @@ function getCamposEditados() {
   return out;
 }
 
-// ── FOTO Y APTO ───────────────────────────────────────────────────
+// â”€â”€ FOTO Y APTO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function toggleApto(){
   var check = document.getElementById('tiene-apto').checked;
   document.getElementById('apto-upload-wrap').style.display = check ? 'block' : 'none';
@@ -702,7 +702,7 @@ function quitarFoto(tipo){
   }
 }
 
-// ── RESUMEN ───────────────────────────────────────────────────────
+// â”€â”€ RESUMEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function renderResumen(){
   var campos = getCamposEditados();
   var html = '<div class="resumen-section"><div class="resumen-title">Datos personales</div>';
@@ -727,7 +727,7 @@ function renderResumen(){
   document.getElementById('resumen-datos').innerHTML = html;
 }
 
-// ── GUARDAR ───────────────────────────────────────────────────────
+// â”€â”€ GUARDAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function confirmarGuardar(){
   var campos = getCamposEditados();
   var dni = S.ocrData.dni || campos.dni;
@@ -801,7 +801,7 @@ function reiniciar(){
   S.paso=6; irPaso(1);
 }
 
-// ── INIT ─────────────────────────────────────────────────────────
+// â”€â”€ INIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 window.onload = function(){
   ocultarLoader();
   // Deshabilitar botones de continuar hasta tener imagen
